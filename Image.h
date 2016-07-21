@@ -1,3 +1,6 @@
+#ifndef _IMAGE_
+#define _IMAGE_
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -148,3 +151,5 @@ namespace imaging {
 
 
 }
+
+#endif

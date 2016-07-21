@@ -34,6 +34,8 @@ TEST(ArrayClassTests, SetGetData) {
 
 	Array<int> intArray(width, height);
 
+	//Array<int> intArray2(1,1);
+
 	//component_t * buf = new component_t[width*height*COLORS_PER_PIXEL];
 
 	intArray(0, 0) = 0; intArray(1, 0) = 1; intArray(2, 0) = 2;
@@ -84,6 +86,8 @@ TEST(ImageTests, PPMAverageTest) {
 	EXPECT_NEAR(0.2, avgCol.r, 0.00001);
 	EXPECT_NEAR(0.3, avgCol.g, 0.00001);
 	EXPECT_NEAR(0.4, avgCol.b, 0.00001);
+
+	delete testImage;
 
 }
 

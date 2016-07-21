@@ -57,6 +57,21 @@ namespace math{
 	}
 
 	template <typename T>
+	Array<T> & Array<T>::operator = (const Array<T> & source) {
+
+		delete[] buffer;
+
+		this->width = source.width;
+		this->height = source.height;
+
+		buffer = new T[width * height];
+
+		std::copy(source.buffer, source.buffer + width * height, buffer);
+
+		return (*this);
+	}
+
+	template <typename T>
 	void * Array<T>::getRawDataPtr(){
 		return (void *) buffer;
 	}

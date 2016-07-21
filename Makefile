@@ -3,29 +3,29 @@
 # $* "stem" of target filename e.g. %.f: %.F will five foo for foo.f
 CC = g++
 
-OBJS   = imageaverage.o Array.o UnitTests.o
+OBJS   = filter.o Array.o UnitTests.o
 CFLAGS = -std=c++11 -g -O2 -ggdb3 -Wall -Wextra -pedantic
 #LIBS   = -lunittest++
 LIBS   = -lgtest -lgtest_main
 
-all: imageaverage imageaverage_test
+all: filter filter_test
 
 # basic executable targets
-imageaverage: $(OBJS)
-	$(CC) $(CFLAGS) imageaverage.o Array.o -o imageaverage
+filter: $(OBJS)
+	$(CC) $(CFLAGS) filter.o Array.o -o filter
 
-imageaverage.o: imageaverage.cpp Image.h Array.h Vec3.h
-	$(CC) $(CFLAGS) -c imageaverage.cpp
+filter.o: filter.cpp Image.h Array.h Vec3.h
+	$(CC) $(CFLAGS) -c filter.cpp
 
 Array.o: Array.cpp Array.h Vec3.h Serializable.h
 	$(CC) $(CFLAGS) -c Array.cpp
 
 # Unit tests targets
-imageaverage_test: imageaverage_test.o Array.o UnitTests.o
-	$(CC) $(CFLAGS) imageaverage_test.o Array.o UnitTests.o -o imageaverage_test $(LIBS)
+filter_test: filter_test.o Array.o UnitTests.o
+	$(CC) $(CFLAGS) filter_test.o Array.o UnitTests.o -o filter_test $(LIBS)
 
-imageaverage_test.o: imageaverage_test.cpp UnitTests.cpp Image.h Array.h Vec3.h
-	$(CC) $(CFLAGS) -c imageaverage_test.cpp $(LIBS)
+filter_test.o: filter_test.cpp UnitTests.cpp Image.h Array.h Vec3.h
+	$(CC) $(CFLAGS) -c filter_test.cpp $(LIBS)
 
 UnitTests.o: UnitTests.cpp Array.h Image.h Vec3.h
 	$(CC) $(CFLAGS) -c UnitTests.cpp $(LIBS)
@@ -33,4 +33,4 @@ UnitTests.o: UnitTests.cpp Array.h Image.h Vec3.h
 # $(CC) $(CFLAGS) $^   -o $@ $(LIBS)
 
 clean:
-	/bin/rm -f *.o imageaverage imageaverage_test
+	/bin/rm -f *.o filter filter_test
