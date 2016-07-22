@@ -14,7 +14,7 @@ all: filter filter_test
 filter: $(OBJS)
 	$(CC) $(CFLAGS) filter.o Array.o -o filter
 
-filter.o: filter.cpp Image.h Array.h Vec3.h
+filter.o: filter.cpp Image.h Array.h Vec3.h Filter.h GrayFilter.h
 	$(CC) $(CFLAGS) -c filter.cpp
 
 Array.o: Array.cpp Array.h Vec3.h Serializable.h
@@ -24,7 +24,7 @@ Array.o: Array.cpp Array.h Vec3.h Serializable.h
 filter_test: filter_test.o Array.o UnitTests.o
 	$(CC) $(CFLAGS) filter_test.o Array.o UnitTests.o -o filter_test $(LIBS)
 
-filter_test.o: filter_test.cpp UnitTests.cpp Image.h Array.h Vec3.h
+filter_test.o: filter_test.cpp UnitTests.cpp Image.h Array.h Vec3.h Filter.h
 	$(CC) $(CFLAGS) -c filter_test.cpp $(LIBS)
 
 UnitTests.o: UnitTests.cpp Array.h Image.h Vec3.h

@@ -6,6 +6,8 @@
 #include "Array.h"
 #include "Image.h"
 #include "Vec3.h"
+#include "Filter.h"
+#include "GrayFilter.h"
 
 using namespace std;
 using namespace math;
@@ -16,10 +18,9 @@ std::ostream& operator<<(std::ostream &strm, const list<string> &a);
 int main(int argc, char **argv) {
 
 	Image readImage((unsigned int)0, (unsigned int)0);
+	Image outImage((unsigned int)0, (unsigned int)0);
 
 	string inputFileName, outputFileName;
-
-	// inputFileName = "TestOut.ppm";
 
 	list<string> filtersList;
 	string argument;
@@ -73,8 +74,11 @@ int main(int argc, char **argv) {
 	cout << "Output filename: " << outputFileName << endl;
 	cout << "Filters list: " << filtersList << endl;
 
-	// readImage << (inputFileName.c_str());
-	// readImage >> ("TestOut.ppm");
+	GrayFilter grayf1;
+
+	readImage << inputFileName.c_str();
+	outImage = grayf1 << readImage;
+	outImage >> outputFileName;
 
 	// Vec3<component_t> avgColor;
 	// avgColor = readImage.imageAveragePPM();
