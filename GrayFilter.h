@@ -12,7 +12,7 @@ namespace imaging
 		
 	public:
 		
-		GrayFilter () {};
+		GrayFilter () { filtername = "gray";};
 		~GrayFilter() {};
 
 		virtual Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y){

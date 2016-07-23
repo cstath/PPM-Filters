@@ -1,6 +1,7 @@
 #ifndef _FILTER
 #define _FILTER
 
+#include <string>
 #include "Image.h"
 
 namespace imaging
@@ -8,11 +9,12 @@ namespace imaging
 	class Filter
 	{
 	protected:
+		string filtername;
 		// Image * bufImage;
 	public:
 		
 		Filter () {};
-		~Filter() {};
+		virtual ~Filter() {};
 
 		// This virtual method has to be implemented in each Filter subclass for specific filters
 		virtual Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y) = 0;
@@ -34,6 +36,14 @@ namespace imaging
 
 			// Return the result
 			return bufImage;
+		}
+
+		string getFilterName(){ return filtername; };
+
+		friend ostream &operator<<( ostream & output, const Filter & filter )
+		{
+			output << filter.filtername ;
+			return output;
 		}
 
 	};

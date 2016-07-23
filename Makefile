@@ -14,7 +14,7 @@ all: filter filter_test
 filter: $(OBJS)
 	$(CC) $(CFLAGS) filter.o Array.o -o filter
 
-filter.o: filter.cpp Image.h Array.h Vec3.h Filter.h GrayFilter.h
+filter.o: filter.cpp Image.h Array.h Vec3.h Filter.h GrayFilter.h BlurFilter.h DiffFilter.h
 	$(CC) $(CFLAGS) -c filter.cpp
 
 Array.o: Array.cpp Array.h Vec3.h Serializable.h
