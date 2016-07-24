@@ -4,6 +4,8 @@
 #include <string>
 #include "Image.h"
 
+using namespace std;
+
 namespace imaging
 {
 	class Filter
@@ -21,7 +23,6 @@ namespace imaging
 
 		// Apply the filter 
 		Image operator << (imaging::Image& inpImage) {
-		// Image apply(Image& inpImage) {
 
 			//make a new image buffer with the same size to store the filter result
 			Image bufImage(inpImage.getWidth(), inpImage.getHeight());
@@ -33,6 +34,8 @@ namespace imaging
 					bufImage(j,i) = filteredPixel(inpImage, j, i);
 				}
 			}
+
+			cout << "Applied " << filtername << " filter" << endl;
 
 			// Return the result
 			return bufImage;

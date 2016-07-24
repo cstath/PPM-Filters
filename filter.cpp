@@ -84,17 +84,12 @@ int main(int argc, char **argv) {
 
 	// Applying list of filters
 	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); it++)
-    	outImage = **it << outImage;
+		outImage = **it << outImage;
 
-    // Exporting filtered image into output file
-    outImage >> outputFileName;
+	// Exporting filtered image into output file
+	outImage >> outputFileName;
 
-	// Vec3<component_t> avgColor;
-	// avgColor = readImage.imageAveragePPM();
-	// cout << "Image dimensions are: " << readImage.getWidth() << " X " << readImage.getHeight() << endl;
-	// cout << "The average color of the image is (" << avgColor.x << ", " << avgColor.y << ", " << avgColor.z << ")" << endl;
-
-    // clearing things up
+	// clearing things up
 	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); it++)
 		delete *it;
 
@@ -104,10 +99,9 @@ int main(int argc, char **argv) {
 
 std::ostream& operator<<(std::ostream &strm, const list<Filter *> &a) {
 	strm << "[";
-	//<< a.i << ")"
 	for (list<Filter *>::const_iterator it = a.begin(); it != a.end(); it++)
-    	strm << " " << **it;
-    strm << " ]";
+		strm << " " << **it;
+	strm << " ]";
 	return strm;
 }
 
