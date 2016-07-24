@@ -24,6 +24,7 @@ namespace imaging
 		// Apply the filter 
 		Image operator << (imaging::Image& inpImage) {
 
+			cout << "Applying " << filtername << " filter..." << endl;
 			//make a new image buffer with the same size to store the filter result
 			Image bufImage(inpImage.getWidth(), inpImage.getHeight());
 
@@ -35,7 +36,7 @@ namespace imaging
 				}
 			}
 
-			cout << "Applied " << filtername << " filter" << endl;
+			cout << filtername << " filter applied." << endl;
 
 			// Return the result
 			return bufImage;
