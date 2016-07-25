@@ -3,7 +3,7 @@
 # $* "stem" of target filename e.g. %.f: %.F will five foo for foo.f
 
 
-SUBDIRS = filter GUI 
+SUBDIRS = filter GUI test
 
 all:
 	@for i in $(SUBDIRS); do \

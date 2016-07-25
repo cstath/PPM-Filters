@@ -29,4 +29,4 @@ $(OUTDIR)/%.o: $(SRCDIR)/%.cpp
 
 # To remove generated files
 clean:
-	rm -f $(PROGRAM) $(OBJFILES)
+	rm -f $(OUTDIR)/$(PROGRAM) $(OBJFILES)
