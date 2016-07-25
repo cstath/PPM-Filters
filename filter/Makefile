@@ -1,4 +1,4 @@
-# ########################   Makefile.1   ############################
+# ########################   Makefile for filter   ############################
 # $@ target, $< first dependency, $^ all dependencies, 
 # $* "stem" of target filename e.g. %.f: %.F will five foo for foo.f
 
@@ -7,7 +7,7 @@ SRCDIR = .
 INCLDIR = .
 OUTDIR = ../bin
 CC = g++
-CC_FLAGS = -std=c++11 -g -O2 -ggdb3 -Wall -Wextra -pedantic
+CC_FLAGS = -std=c++11 -g -O2 -Wall -Wextra -pedantic
 LIBS   = -lgtest -lgtest_main
 
 

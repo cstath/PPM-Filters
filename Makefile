@@ -1,4 +1,4 @@
-# ########################   Makefile.1   ############################
+# ########################   Makefile for all   ############################
 # $@ target, $< first dependency, $^ all dependencies, 
 # $* "stem" of target filename e.g. %.f: %.F will five foo for foo.f
 

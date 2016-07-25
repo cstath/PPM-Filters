@@ -37,7 +37,6 @@ namespace math{
 		if ( x >= width || y >= width) {
 			cout << "getPixel: Index out of image bounds!!!" << endl;
 			exit(1);
-			//return NULL;
 		}
 
 		return buffer[ y*width + x ];
@@ -50,7 +49,6 @@ namespace math{
 		if ( x >= width || y >= width) {
 			cout << "getPixel: Index out of image bounds!!!" << endl;
 			exit(1);
-			//return NULL;
 		}
 
 		return buffer[ y*width + x ];

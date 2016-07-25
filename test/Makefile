@@ -1,4 +1,4 @@
-# ########################   Makefile.1   ############################
+# ########################   Makefile for Test   ############################
 # $@ target, $< first dependency, $^ all dependencies, 
 # $* "stem" of target filename e.g. %.f: %.F will five foo for foo.f
 
@@ -8,7 +8,7 @@ TESTDIR = .
 INCLDIR = -I. -I../filter
 OUTDIR = ../bin
 CC = g++
-CC_FLAGS = -std=c++11 -g -O2 -ggdb3 -Wall -Wextra -pedantic
+CC_FLAGS = -std=c++11 -g -ggdb3 -Wall -Wextra -pedantic
 LIBS   = -lgtest -lgtest_main
 
 
