@@ -2,32 +2,32 @@
 #define _FILTER
 
 #include "Image.h"
-
-using namespace std;
+#include <string>
 
 namespace imaging
 {
-	class Filter
-	{
-	protected:
-		string filtername;
-		// Image * bufImage;
-	public:
-		
-		Filter ();
-		virtual ~Filter();
+	
+class Filter
+{
+protected:
+	std::string filtername;
 
-		// This virtual method has to be implemented in each Filter subclass for specific filters
-		virtual Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y) = 0;
+public:
 
-		// Apply the filter 
-		Image operator << (imaging::Image& inpImage);
+	Filter ();
+	virtual ~Filter();
 
-		string getFilterName();
+	// This virtual method has to be implemented in each Filter subclass for specific filters
+	virtual math::Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y) = 0;
 
-		friend ostream &operator<<( ostream & output, const Filter & filter );
+	// Apply the filter
+	Image operator << (imaging::Image& inpImage);
 
-	};
+	std::string getFilterName();
+
+	friend std::ostream &operator<<( std::ostream & output, const Filter & filter );
+
+};
 
 }
 #endif

@@ -1,5 +1,8 @@
 #include "Common.h"
 
+using namespace std;
+using namespace imaging;
+
 void parseInit(int argc, char ** argv, string & inputFileName, string & outputFileName, list<Filter *> & filtersList){
 
 	string argument;
@@ -52,7 +55,6 @@ void parseInit(int argc, char ** argv, string & inputFileName, string & outputFi
 	cout << "Input filename: " << inputFileName << endl;
 	cout << "Output filename: " << outputFileName << endl;
 	cout << "Filters list: " << filtersList << endl;
-
 }
 
 std::ostream& operator<<(std::ostream &strm, const list<Filter *> &a) {

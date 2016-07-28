@@ -1,39 +1,41 @@
 #include "BlurFilter.h"
 
+using namespace math;
+
 namespace imaging
-{		
-	BlurFilter::BlurFilter () { 
-		filtername = "blur";
-	}
-	
-	BlurFilter::~BlurFilter() {}
+{
+BlurFilter::BlurFilter () {
+	filtername = "blur";
+}
 
-	Vec3<component_t> BlurFilter::filteredPixel( imaging::Image & inpImage, unsigned int x, unsigned int y) {
+BlurFilter::~BlurFilter() {}
 
-		Vec3<component_t> filteredPixel;
+Vec3<component_t> BlurFilter::filteredPixel( imaging::Image & inpImage, unsigned int x, unsigned int y) {
 
-		int i = 0;
+	Vec3<component_t> filteredPixel;
 
-		for (int m = -1; m <= +1 ; m++) {
-			for (int n = -1; n <= +1 ; n++) {
+	int i = 0;
 
-				int x_hat = (int)x + m;
-				int y_hat = (int)y + n;
+	for (int m = -1; m <= +1 ; m++) {
+		for (int n = -1; n <= +1 ; n++) {
 
-				if ( ( 0 <= x_hat ) && (x_hat < (int) inpImage.getWidth()) &&
-				        ( 0 <= y_hat ) && (y_hat < (int) inpImage.getHeight()) ) {
+			int x_hat = (int)x + m;
+			int y_hat = (int)y + n;
 
-					filteredPixel += inpImage( (unsigned int) x_hat , (unsigned int) y_hat );
-					i++;
-				}
+			if ( ( 0 <= x_hat ) && (x_hat < (int) inpImage.getWidth()) &&
+			        ( 0 <= y_hat ) && (y_hat < (int) inpImage.getHeight()) ) {
 
+				filteredPixel += inpImage( (unsigned int) x_hat , (unsigned int) y_hat );
+				i++;
 			}
+
 		}
-
-		filteredPixel /= i;
-
-		return filteredPixel;
-
 	}
+
+	filteredPixel /= i;
+
+	return filteredPixel;
+
+}
 
 }

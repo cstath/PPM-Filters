@@ -6,18 +6,18 @@
 
 namespace imaging
 {
-	class GrayFilter : public Filter
-	{
-	protected:
-		
-	public:
-		
-		GrayFilter ();
-		virtual ~GrayFilter();
+class GrayFilter : public Filter
+{
+protected:
 
-		virtual Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y);
+public:
 
-	};
+	GrayFilter ();
+	virtual ~GrayFilter();
+
+	virtual math::Vec3<component_t> filteredPixel( imaging::Image& inpImage, unsigned int x, unsigned int y);
+
+};
 
 }
 #endif
