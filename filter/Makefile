@@ -6,8 +6,12 @@
 SRCDIR = .
 INCLDIR = .
 OUTDIR = ../bin
+$(shell mkdir -p $(OUTDIR) >/dev/null)
+DEPDIR = $(OUTDIR)/deps
+$(shell mkdir -p $(DEPDIR) >/dev/null)
+
 CC = g++
-CC_FLAGS = -std=c++11 -g -O2 -Wall -Wextra -pedantic
+CC_FLAGS = -std=c++11 -g -Wall -Wextra -pedantic
 LIBS   = -lgtest -lgtest_main
 
 
@@ -17,16 +21,27 @@ PROGRAM = filter
 SRCFILES := $(wildcard *.cpp)
 TMPFILES = $(SRCFILES:.cpp=.o)
 OBJFILES = $(addprefix $(OUTDIR)/, $(TMPFILES))
-HEADERFILES = := $(wildcard *.h)
+TMPDEPFILES = $(SRCFILES:.cpp=.d)
+DEPFILES = $(addprefix $(DEPDIR)/, $(TMPDEPFILES))
 
 # Main target
 $(OUTDIR)/$(PROGRAM): $(OBJFILES)
 	$(CC) $(OBJFILES) -o $@ 
 
+# pull in dependency info for *existing* .o files
+-include $(DEPFILES)
+
 # To obtain object files
 $(OUTDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) -c $(CC_FLAGS) -I$(INCLDIR) $< -o $@ 
+	$(CC) -MM $(CC_FLAGS) -I$(INCLDIR) $< > $(DEPDIR)/$*.d
+	@mv -f $(DEPDIR)/$*.d $(DEPDIR)/$*.d.tmp
+	@sed -e 's|.*:|$(OUTDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
+	@sed -e 's/.*://' -e 's/\\//' < $(DEPDIR)/$*.d.tmp | tr --delete '\n' |\
+	  fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(DEPDIR)/$*.d
+	@rm -f $(DEPDIR)/$*.d.tmp
+
 
 # To remove generated files
 clean:
-	rm -f $(OUTDIR)/$(PROGRAM) $(OBJFILES)
+	rm -f $(OUTDIR)/$(PROGRAM) $(OBJFILES) $(DEPFILES)
