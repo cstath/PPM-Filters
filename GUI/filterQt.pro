@@ -19,7 +19,7 @@ HEADERS += \
     ../filter/Serializable.h \
     ../filter/Vec3.h
 
-QMAKE_CXXFLAGS += -std=c++11 -g -O2 -ggdb3 -Wall -Wextra -pedantic
+QMAKE_CXXFLAGS += -std=c++11 -g -ggdb3 -Wall -Wextra -pedantic
 
 INCLUDEPATH += "../filter/"
 

@@ -8,10 +8,13 @@ TESTDIR = .
 INCLDIR = -I. -I../filter
 OUTDIR = ../bin
 $(shell mkdir -p $(OUTDIR) >/dev/null)
+OBJDIR = $(OUTDIR)/objs-test
+$(shell mkdir -p $(OBJDIR) >/dev/null)
 DEPDIR = $(OUTDIR)/deps-test
 $(shell mkdir -p $(DEPDIR) >/dev/null)
 CC = g++
-CC_FLAGS = -std=c++11 -g -ggdb3 -Wall -Wextra -pedantic
+CC_FLAGS = -std=c++11 -ggdb3 -Wall -Wextra -pedantic -fprofile-arcs \
+			-ftest-coverage 
 LIBS   = -lgtest -lgtest_main
 
 
@@ -19,7 +22,7 @@ LIBS   = -lgtest -lgtest_main
 PROGRAM = filter
 SRCFILES := $(shell find $(SRCDIR)/ -name '*.cpp' -exec basename {} \;)
 TMPFILES = $(SRCFILES:.cpp=.o)
-OBJFILES = $(addprefix $(OUTDIR)/, $(TMPFILES))
+OBJFILES = $(addprefix $(OBJDIR)/, $(TMPFILES))
 TMPDEPFILES = $(SRCFILES:.cpp=.d)
 DEPFILES = $(addprefix $(DEPDIR)/, $(TMPDEPFILES))
 
@@ -27,7 +30,7 @@ DEPFILES = $(addprefix $(DEPDIR)/, $(TMPDEPFILES))
 # Check framework provides it's own main() function.
 SRCFILES-TEST := $(shell find $(TESTDIR)/ -name '*.cpp' -exec basename {} \;)
 TMPFILES-TEST  = $(SRCFILES-TEST:.cpp=.o)
-OBJFILES-TEST  = $(addprefix $(OUTDIR)/, $(TMPFILES-TEST))
+OBJFILES-TEST  = $(addprefix $(OBJDIR)/, $(TMPFILES-TEST))
 OBJFILES-TEST += $(OBJFILES)
 OBJFILES-TEST := $(filter-out %/main.o, $(OBJFILES-TEST))
 
@@ -55,20 +58,20 @@ $(OUTDIR)/$(PROGRAM)-test: $(OBJFILES-TEST)
 -include $(DEPFILES-TEST)
 
 # Generic rules to build all source files needed for test
-$(OUTDIR)/%.o: $(TESTDIR)/%.cpp
+$(OBJDIR)/%.o: $(TESTDIR)/%.cpp
 	$(CC) -c $(CC_FLAGS) $(INCLDIR) $< -o $@ $(LIBS)
 	$(CC) -MM $(CC_FLAGS) $(INCLDIR) $< $(LIBS) > $(DEPDIR)/$*.d
 	@mv -f $(DEPDIR)/$*.d $(DEPDIR)/$*.d.tmp
-	@sed -e 's|.*:|$(OUTDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
+	@sed -e 's|.*:|$(OBJDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
 	@sed -e 's/.*://' -e 's/\\//' < $(DEPDIR)/$*.d.tmp | tr --delete '\n' |\
 	  fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(DEPDIR)/$*.d
 	@rm -f $(DEPDIR)/$*.d.tmp
 
-$(OUTDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) -c $(CC_FLAGS) $(INCLDIR) $< -o $@ $(LIBS)
 	$(CC) -MM $(CC_FLAGS) $(INCLDIR) $< $(LIBS) > $(DEPDIR)/$*.d
 	@mv -f $(DEPDIR)/$*.d $(DEPDIR)/$*.d.tmp
-	@sed -e 's|.*:|$(OUTDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
+	@sed -e 's|.*:|$(OBJDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
 	@sed -e 's/.*://' -e 's/\\//' < $(DEPDIR)/$*.d.tmp | tr --delete '\n' |\
 	  fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(DEPDIR)/$*.d
 	@rm -f $(DEPDIR)/$*.d.tmp

@@ -7,6 +7,8 @@ SRCDIR = .
 INCLDIR = .
 OUTDIR = ../bin
 $(shell mkdir -p $(OUTDIR) >/dev/null)
+OBJDIR = $(OUTDIR)/objs
+$(shell mkdir -p $(OBJDIR) >/dev/null)
 DEPDIR = $(OUTDIR)/deps
 $(shell mkdir -p $(DEPDIR) >/dev/null)
 
@@ -20,7 +22,7 @@ PROGRAM = filter
 #SRCFILES := $(shell ls $(SRCDIR))
 SRCFILES := $(wildcard *.cpp)
 TMPFILES = $(SRCFILES:.cpp=.o)
-OBJFILES = $(addprefix $(OUTDIR)/, $(TMPFILES))
+OBJFILES = $(addprefix $(OBJDIR)/, $(TMPFILES))
 TMPDEPFILES = $(SRCFILES:.cpp=.d)
 DEPFILES = $(addprefix $(DEPDIR)/, $(TMPDEPFILES))
 
@@ -32,11 +34,11 @@ $(OUTDIR)/$(PROGRAM): $(OBJFILES)
 -include $(DEPFILES)
 
 # To obtain object files
-$(OUTDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) -c $(CC_FLAGS) -I$(INCLDIR) $< -o $@ 
 	$(CC) -MM $(CC_FLAGS) -I$(INCLDIR) $< > $(DEPDIR)/$*.d
 	@mv -f $(DEPDIR)/$*.d $(DEPDIR)/$*.d.tmp
-	@sed -e 's|.*:|$(OUTDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
+	@sed -e 's|.*:|$(OBJDIR)/$*.o:|' < $(DEPDIR)/$*.d.tmp > $(DEPDIR)/$*.d
 	@sed -e 's/.*://' -e 's/\\//' < $(DEPDIR)/$*.d.tmp | tr --delete '\n' |\
 	  fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(DEPDIR)/$*.d
 	@rm -f $(DEPDIR)/$*.d.tmp
