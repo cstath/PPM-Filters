@@ -15,10 +15,6 @@ using namespace std;
 using namespace math;
 using namespace imaging;
 
-void parseInit(int argc, char ** argv, string & inputFileName, string & outputFileName, list<Filter *> & filtersList);
-std::ostream& operator<<(std::ostream &strm, const list<Filter *> &a);
-Filter * stringToFilter(string filterString);
-
 int main(int argc, char **argv) {
 
 	Image readImage((unsigned int)0, (unsigned int)0);
