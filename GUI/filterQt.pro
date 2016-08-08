@@ -18,6 +18,7 @@ SOURCES += main.cpp\
         ../filter/DiffFilter.cpp \
         ../filter/Filter.cpp \
         ../filter/GrayFilter.cpp \
+        ../filter/MedianFilter.cpp \
         ../filter/Image.cpp \
         mainwindow.cpp
 
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h\
         ../filter/DiffFilter.h \
         ../filter/Filter.h \
         ../filter/GrayFilter.h \
+        ../filter/MedianFilter.h \
         ../filter/Image.h \
         ../filter/Serializable.h \
         ../filter/Vec3.h \

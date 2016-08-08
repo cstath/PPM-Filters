@@ -94,6 +94,20 @@ void MainWindow::on_pushButton_Diff_clicked()
     }
 }
 
+void MainWindow::on_pushButton_Median_clicked()
+{
+    if (outputImage == NULL){
+        ui->infoLabel->setText("No loaded image!");
+    }
+    else{
+        ui->infoLabel->setText("Applying Median filter...");
+        imaging::MedianFilter medianfilter;
+        (*outputImage) = medianfilter << (*outputImage);
+        showOnQGraphicsView(outputImage);
+        ui->infoLabel->setText("Applied Median filter");
+    }
+}
+
 void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
 
 //    if( pixmapitem!=NULL )
@@ -122,3 +136,4 @@ void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
     }
     pixmapitem = scene->addPixmap(*pixmap);
 }
+

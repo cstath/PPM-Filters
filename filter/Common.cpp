@@ -73,6 +73,8 @@ Filter * stringToFilter(string filterString){
 		return new BlurFilter;
 	if(filterString == "diff")
 		return new DiffFilter;
+	if(filterString == "median")
+		return new MedianFilter;
 	
 	cout << "Argument: \"" << filterString << "\" not recognized as a filter!!!" << endl;
 	exit(1);

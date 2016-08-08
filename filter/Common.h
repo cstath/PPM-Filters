@@ -5,6 +5,7 @@
 #include "GrayFilter.h"
 #include "BlurFilter.h"
 #include "DiffFilter.h"
+#include "MedianFilter.h"
 #include <cstdlib>
 #include <string>
 #include <list>

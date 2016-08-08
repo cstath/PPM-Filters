@@ -20,7 +20,7 @@
       <x>0</x>
       <y>0</y>
       <width>87</width>
-      <height>103</height>
+      <height>128</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -45,6 +45,13 @@
       <widget class="QPushButton" name="pushButton_Diff">
        <property name="text">
         <string>Diff</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_Median">
+       <property name="text">
+        <string>Median</string>
        </property>
       </widget>
      </item>

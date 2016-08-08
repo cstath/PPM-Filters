@@ -12,6 +12,7 @@
 #include "GrayFilter.h"
 #include "BlurFilter.h"
 #include "DiffFilter.h"
+#include "MedianFilter.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,8 @@ private slots:
     void on_pushButton_Blur_clicked();
 
     void on_pushButton_Diff_clicked();
+
+    void on_pushButton_Median_clicked();
 
 private:
     Ui::MainWindow *ui;
