@@ -110,9 +110,8 @@ void MainWindow::on_pushButton_Median_clicked()
 
 void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
 
-//    if( pixmapitem!=NULL )
-//        delete pixmapitem;
-//        scene->removeItem(pixmapitem);
+
+    scene->clear();
 
     unsigned int width, height;
     width = anImage->getWidth();
@@ -134,6 +133,8 @@ void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
             painter->drawPoint((int) x, (int) y);
         }
     }
+
     pixmapitem = scene->addPixmap(*pixmap);
+    scene->setSceneRect(0, 0, pixmap->width(), pixmap->height());
 }
 
