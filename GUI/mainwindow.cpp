@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene = new QGraphicsScene(this);   // create a scene
     ui->graphicsView->setScene(scene);  // show the scene on graphicsView
+
+    setWindowTitle("PPM-filters");
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +27,7 @@ void MainWindow::on_actionOpen_triggered()
     QString inputFileName = QFileDialog::getOpenFileName(this,
         tr("Open Image"), "/home/chris", tr("Image Files (*.ppm)"));
 
-    ui->infoLabel->setText(inputFileName);
+    ui->statusBar->showMessage("Opened " + inputFileName);
 
     if (inputFileName != NULL){
 
@@ -45,7 +47,7 @@ void MainWindow::on_actionSave_triggered()
     QString outputFileName = QFileDialog::getSaveFileName(this,
         tr("Save Image"), "/home/chris", tr("Image Files (*.ppm)"));
 
-    ui->infoLabel->setText(outputFileName);
+    ui->statusBar->showMessage("Saved " + outputFileName);
 
     if (outputFileName != NULL && outputImage != NULL){
         (*outputImage) >> outputFileName.toStdString().c_str();
@@ -55,61 +57,60 @@ void MainWindow::on_actionSave_triggered()
 void MainWindow::on_pushButton_Gray_clicked()
 {
     if (outputImage == NULL){
-        ui->infoLabel->setText("No loaded image!");
+        ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->infoLabel->setText("Applying Gray filter...");
+        ui->statusBar->showMessage("Applying Gray filter...");
         imaging::GrayFilter grayfilter;
         (*outputImage) = grayfilter << (*outputImage);
         showOnQGraphicsView(outputImage);
-        ui->infoLabel->setText("Applied Gray filter");
+        ui->statusBar->showMessage("Applied Gray filter");
     }
 }
 
 void MainWindow::on_pushButton_Blur_clicked()
 {
     if (outputImage == NULL){
-        ui->infoLabel->setText("No loaded image!");
+        ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->infoLabel->setText("Applying Blur filter...");
+        ui->statusBar->showMessage("Applying Blur filter...");
         imaging::BlurFilter blurfilter;
         (*outputImage) = blurfilter << (*outputImage);
         showOnQGraphicsView(outputImage);
-        ui->infoLabel->setText("Applied Blur filter");
+        ui->statusBar->showMessage("Applied Blur filter");
     }
 }
 
 void MainWindow::on_pushButton_Diff_clicked()
 {
     if (outputImage == NULL){
-        ui->infoLabel->setText("No loaded image!");
+        ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->infoLabel->setText("Applying Diff filter...");
+        ui->statusBar->showMessage("Applying Diff filter...");
         imaging::DiffFilter difffilter;
         (*outputImage) = difffilter << (*outputImage);
         showOnQGraphicsView(outputImage);
-        ui->infoLabel->setText("Applied Diff filter");
+        ui->statusBar->showMessage("Applied Diff filter");
     }
 }
 
 void MainWindow::on_pushButton_Median_clicked()
 {
     if (outputImage == NULL){
-        ui->infoLabel->setText("No loaded image!");
+        ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->infoLabel->setText("Applying Median filter...");
+        ui->statusBar->showMessage("Applying Median filter...");
         imaging::MedianFilter medianfilter;
         (*outputImage) = medianfilter << (*outputImage);
         showOnQGraphicsView(outputImage);
-        ui->infoLabel->setText("Applied Median filter");
+        ui->statusBar->showMessage("Applied Median filter");
     }
 }
 
 void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
-
 
     scene->clear();
 

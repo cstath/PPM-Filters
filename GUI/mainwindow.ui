@@ -68,13 +68,6 @@
       <item>
        <widget class="QGraphicsView" name="graphicsView"/>
       </item>
-      <item>
-       <widget class="QLabel" name="infoLabel">
-        <property name="text">
-         <string>Actions Info</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
