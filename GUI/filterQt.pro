@@ -19,19 +19,24 @@ SOURCES += main.cpp\
         ../filter/Filter.cpp \
         ../filter/GrayFilter.cpp \
         ../filter/MedianFilter.cpp \
+        ../filter/ColorFilter.cpp \
         ../filter/Image.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    colorfilterdialog.cpp
 
-HEADERS  += mainwindow.h\
+HEADERS  +=\
         ../filter/Array.h \
         ../filter/BlurFilter.h \
         ../filter/DiffFilter.h \
         ../filter/Filter.h \
         ../filter/GrayFilter.h \
         ../filter/MedianFilter.h \
+        ../filter/ColorFilter.h \
         ../filter/Image.h \
         ../filter/Serializable.h \
         ../filter/Vec3.h \
+        mainwindow.h \
+    colorfilterdialog.h
 
 INCLUDEPATH += "../filter/"
 
@@ -39,4 +44,5 @@ DESTDIR = ../bin/
 
 QMAKE_CXXFLAGS += -std=c++11 -ggdb3 -Wall -Wextra -pedantic
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    colorfilterdialog.ui

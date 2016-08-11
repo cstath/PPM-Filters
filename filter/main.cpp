@@ -5,10 +5,6 @@
 #include "Array.h"
 #include "Image.h"
 #include "Vec3.h"
-#include "Filter.h"
-#include "GrayFilter.h"
-#include "BlurFilter.h"
-#include "DiffFilter.h"
 #include "Common.h"
 
 using namespace std;

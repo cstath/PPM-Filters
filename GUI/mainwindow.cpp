@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "colorfilterdialog.h"
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -54,62 +56,6 @@ void MainWindow::on_actionSave_triggered()
     }
 }
 
-void MainWindow::on_pushButton_Gray_clicked()
-{
-    if (outputImage == NULL){
-        ui->statusBar->showMessage("No loaded image!");
-    }
-    else{
-        ui->statusBar->showMessage("Applying Gray filter...");
-        imaging::GrayFilter grayfilter;
-        (*outputImage) = grayfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Applied Gray filter");
-    }
-}
-
-void MainWindow::on_pushButton_Blur_clicked()
-{
-    if (outputImage == NULL){
-        ui->statusBar->showMessage("No loaded image!");
-    }
-    else{
-        ui->statusBar->showMessage("Applying Blur filter...");
-        imaging::BlurFilter blurfilter;
-        (*outputImage) = blurfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Applied Blur filter");
-    }
-}
-
-void MainWindow::on_pushButton_Diff_clicked()
-{
-    if (outputImage == NULL){
-        ui->statusBar->showMessage("No loaded image!");
-    }
-    else{
-        ui->statusBar->showMessage("Applying Diff filter...");
-        imaging::DiffFilter difffilter;
-        (*outputImage) = difffilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Applied Diff filter");
-    }
-}
-
-void MainWindow::on_pushButton_Median_clicked()
-{
-    if (outputImage == NULL){
-        ui->statusBar->showMessage("No loaded image!");
-    }
-    else{
-        ui->statusBar->showMessage("Applying Median filter...");
-        imaging::MedianFilter medianfilter;
-        (*outputImage) = medianfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Applied Median filter");
-    }
-}
-
 void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
 
     scene->clear();
@@ -139,3 +85,83 @@ void MainWindow::showOnQGraphicsView(imaging::Image *anImage){
     scene->setSceneRect(0, 0, pixmap->width(), pixmap->height());
 }
 
+void MainWindow::on_pushButton_Median_clicked()
+{
+    if (outputImage == NULL){
+        ui->statusBar->showMessage("No loaded image!");
+    }
+    else{
+        ui->statusBar->showMessage("Applying Median filter...");
+        imaging::MedianFilter medianfilter;
+        (*outputImage) = medianfilter << (*outputImage);
+        showOnQGraphicsView(outputImage);
+        ui->statusBar->showMessage("Median filter applied!");
+    }
+}
+
+void MainWindow::on_pushButton_Gray_clicked()
+{
+    if (outputImage == NULL){
+        ui->statusBar->showMessage("No loaded image!");
+    }
+    else{
+        ui->statusBar->showMessage("Applying Gray filter...");
+        imaging::GrayFilter grayfilter;
+        (*outputImage) = grayfilter << (*outputImage);
+        showOnQGraphicsView(outputImage);
+        ui->statusBar->showMessage("Gray filter applied!");
+    }
+}
+
+void MainWindow::on_pushButton_Blur_clicked()
+{
+    if (outputImage == NULL){
+        ui->statusBar->showMessage("No loaded image!");
+    }
+    else{
+        ui->statusBar->showMessage("Applying Blur filter...");
+        imaging::BlurFilter blurfilter;
+        (*outputImage) = blurfilter << (*outputImage);
+        showOnQGraphicsView(outputImage);
+        ui->statusBar->showMessage("Blur filter applied!");
+    }
+}
+
+void MainWindow::on_pushButton_Diff_clicked()
+{
+    if (outputImage == NULL){
+        ui->statusBar->showMessage("No loaded image!");
+    }
+    else{
+        ui->statusBar->showMessage("Applying Diff filter...");
+        imaging::DiffFilter difffilter;
+        (*outputImage) = difffilter << (*outputImage);
+        showOnQGraphicsView(outputImage);
+        ui->statusBar->showMessage("Diff filter applied!");
+    }
+}
+
+
+void MainWindow::on_pushButton_Color_clicked()
+{
+    if (outputImage == NULL){
+        ui->statusBar->showMessage("No loaded image!");
+    }
+    else{
+        ColorFilterDialog colorDialog;
+        colorDialog.setModal(true);
+
+        if (colorDialog.exec()){
+            component_t r, g, b;
+            colorDialog.GetColorDialogData(r, g, b);
+
+            ui->statusBar->showMessage("Applying Color filter...");
+            imaging::ColorFilter colorfilter;
+            colorfilter.setColorFactors(r,g,b);
+            (*outputImage) = colorfilter << (*outputImage);
+            showOnQGraphicsView(outputImage);
+            ui->statusBar->showMessage("Color filter applied!");
+
+        }
+    }
+}

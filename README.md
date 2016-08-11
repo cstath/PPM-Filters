@@ -1,7 +1,16 @@
 # PPM-Filters
-This application provides basic image filtering for files in ppm format. You can apply successive filters and export the filtered image into an output file. The filters currently available, are gray, blur, median and diff filters. 
+This application provides basic image filtering for files in ppm format. You can apply successive filters and export the filtered image into an output file. The filters currently supported, are gray, blur, median, diff and color filters.
 
-It also includes a simplistic Qt graphical front-end of the application, allowing for interactive image processing.
+A Qt graphical front-end of the application is also included, allowing for interactive image processing.
+
+About the Filters
+-
+
+- gray: turns the image into grayscale.
+- blur: each pixel takes the average value of it's neighbours.
+- median: each pixel takes the median value of it's neighbours.
+- diff: each pixel takes the difference between its maximum and its minimum neighbours.
+- color: each color channel (r,g,b) is multiplied by a separate scale factor.
 
 Installation
 -
@@ -45,7 +54,7 @@ and to transform an image input.ppm into a grayscale version and save it as outp
 
 You can also supply a list of multiple filters to be applied successively, for example
 
-`./filter -f gray -f diff -f blur -f median -o output.ppm input.ppm`
+`./filter -f diff -f blur -f median -f color 0.5 0.5 1 -o output.ppm input.ppm`
 
 To run the graphical version issue
 

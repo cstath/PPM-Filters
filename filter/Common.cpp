@@ -25,7 +25,16 @@ void parseInit(int argc, char ** argv, string & inputFileName, string & outputFi
 			}
 		}
 		else if (argument == "-f"){
-			if (i+1 < argc){
+			if ( string(argv[i+1]) == "color" && i+4 <= argc){
+
+				ColorFilter * colorfilter = (ColorFilter *) stringToFilter(string(argv[i+1]));
+				colorfilter->setColorFactors( atof(argv[i+2]), 
+					atof(argv[i+3]), 
+					atof(argv[i+4]) );
+				i+=4;
+				filtersList.push_back(colorfilter);
+			}
+			else if (i+1 < argc){
 				i++;
 				filtersList.push_back( stringToFilter(string(argv[i])) );
 			}
@@ -75,6 +84,8 @@ Filter * stringToFilter(string filterString){
 		return new DiffFilter;
 	if(filterString == "median")
 		return new MedianFilter;
+	if(filterString == "color")
+		return new ColorFilter;
 	
 	cout << "Argument: \"" << filterString << "\" not recognized as a filter!!!" << endl;
 	exit(1);
