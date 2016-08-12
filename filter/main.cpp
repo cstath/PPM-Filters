@@ -29,14 +29,14 @@ int main(int argc, char **argv) {
 	outImage = readImage;
 
 	// Applying list of filters
-	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); it++)
+	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); ++it)
 		outImage = **it << outImage;
 
 	// Exporting filtered image into output file
 	outImage >> outputFileName;
 
 	// clearing things up
-	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); it++)
+	for (list<Filter *>::const_iterator it = filtersList.begin(); it != filtersList.end(); ++it)
 		delete *it;
 
 	return 0;

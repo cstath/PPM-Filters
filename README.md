@@ -48,7 +48,7 @@ To run the executables, first enter the bin directory
 
 `cd bin`
 
-and to transform an image input.ppm into a grayscale version and save it as output.ppm
+to transform an image input.ppm into a grayscale version and save it as output.ppm
 
 `./filter -f gray -o output.ppm input.ppm`
 

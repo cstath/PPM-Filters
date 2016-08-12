@@ -45,9 +45,5 @@ public:
 
 };
 
-// This is a templated class so include its implementation in the header file below this line:
-//--------------------------------------------------------------------------------------------
-
-
 } // namespace math
 #endif

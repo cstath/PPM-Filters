@@ -27,7 +27,7 @@ void parseInit(int argc, char ** argv, string & inputFileName, string & outputFi
 		else if (argument == "-f"){
 			if ( string(argv[i+1]) == "color" && i+4 <= argc){
 
-				ColorFilter * colorfilter = (ColorFilter *) stringToFilter(string(argv[i+1]));
+				ColorFilter * colorfilter = dynamic_cast<ColorFilter*>( stringToFilter(string(argv[i+1])) );
 				colorfilter->setColorFactors( atof(argv[i+2]), 
 					atof(argv[i+3]), 
 					atof(argv[i+4]) );
@@ -68,7 +68,7 @@ void parseInit(int argc, char ** argv, string & inputFileName, string & outputFi
 
 std::ostream& operator<<(std::ostream &strm, const list<Filter *> &a) {
 	strm << "[";
-	for (list<Filter *>::const_iterator it = a.begin(); it != a.end(); it++)
+	for (list<Filter *>::const_iterator it = a.begin(); it != a.end(); ++it)
 		strm << " " << **it;
 	strm << " ]";
 	return strm;
