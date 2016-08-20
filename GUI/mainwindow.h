@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QColor>
 #include <QPainter>
+#include <vector>
 #include "Vec3.h"
 #include "Image.h"
 #include "GrayFilter.h"
@@ -42,16 +43,20 @@ private slots:
 
     void on_pushButton_Color_clicked();
 
+    void on_actionUndo_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     imaging::Image *inputImage;
     imaging::Image *outputImage;
+    std::vector <imaging::Image*> imageHistory;
     QGraphicsScene *scene;
     QPixmap *pixmap;
     QGraphicsPixmapItem *pixmapitem;
 
     void showOnQGraphicsView(imaging::Image *anImage);
+    void apply_filter(imaging::Filter *filter);
 
 };
 

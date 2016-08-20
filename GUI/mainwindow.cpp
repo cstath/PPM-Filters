@@ -37,6 +37,7 @@ void MainWindow::on_actionOpen_triggered()
 
         (*inputImage) << inputFileName.toStdString().c_str();
         outputImage = inputImage;
+        imageHistory.push_back(outputImage);
 
         // create and show the pixmap
         showOnQGraphicsView(outputImage);
@@ -91,11 +92,8 @@ void MainWindow::on_pushButton_Median_clicked()
         ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->statusBar->showMessage("Applying Median filter...");
         imaging::MedianFilter medianfilter;
-        (*outputImage) = medianfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Median filter applied!");
+        apply_filter(dynamic_cast<imaging::Filter*>(&medianfilter));
     }
 }
 
@@ -105,11 +103,8 @@ void MainWindow::on_pushButton_Gray_clicked()
         ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->statusBar->showMessage("Applying Gray filter...");
         imaging::GrayFilter grayfilter;
-        (*outputImage) = grayfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Gray filter applied!");
+        apply_filter(dynamic_cast<imaging::Filter*>(&grayfilter));
     }
 }
 
@@ -119,11 +114,8 @@ void MainWindow::on_pushButton_Blur_clicked()
         ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->statusBar->showMessage("Applying Blur filter...");
         imaging::BlurFilter blurfilter;
-        (*outputImage) = blurfilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Blur filter applied!");
+        apply_filter(dynamic_cast<imaging::Filter*>(&blurfilter));
     }
 }
 
@@ -133,11 +125,8 @@ void MainWindow::on_pushButton_Diff_clicked()
         ui->statusBar->showMessage("No loaded image!");
     }
     else{
-        ui->statusBar->showMessage("Applying Diff filter...");
         imaging::DiffFilter difffilter;
-        (*outputImage) = difffilter << (*outputImage);
-        showOnQGraphicsView(outputImage);
-        ui->statusBar->showMessage("Diff filter applied!");
+        apply_filter(dynamic_cast<imaging::Filter*>(&difffilter));
     }
 }
 
@@ -155,13 +144,36 @@ void MainWindow::on_pushButton_Color_clicked()
             component_t r, g, b;
             colorDialog.GetColorDialogData(r, g, b);
 
-            ui->statusBar->showMessage("Applying Color filter...");
             imaging::ColorFilter colorfilter;
             colorfilter.setColorFactors(r,g,b);
-            (*outputImage) = colorfilter << (*outputImage);
-            showOnQGraphicsView(outputImage);
-            ui->statusBar->showMessage("Color filter applied!");
-
+            apply_filter(dynamic_cast<imaging::Filter*>(&colorfilter));
         }
+    }
+}
+
+void MainWindow::apply_filter(imaging::Filter *filter)
+{
+    ui->statusBar->showMessage("Applying" + QString::fromStdString(filter->getFilterName()) + "filter...");
+
+    imaging::Image * newImage = new imaging::Image((unsigned int)0, (unsigned int)0);
+    (*newImage) = (*filter) << (*outputImage);
+    imageHistory.push_back(newImage);
+    outputImage = newImage;
+
+    showOnQGraphicsView(outputImage);
+    ui->statusBar->showMessage( QString::fromStdString(filter->getFilterName()) + " filter applied!");
+}
+
+void MainWindow::on_actionUndo_triggered()
+{
+    if ( imageHistory.size() > 1 )
+    {
+        imaging::Image * delImage = imageHistory.back();
+        imageHistory.pop_back();
+
+        outputImage = imageHistory.back();
+        showOnQGraphicsView(outputImage);
+
+        delete delImage;
     }
 }
