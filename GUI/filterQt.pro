@@ -42,7 +42,9 @@ INCLUDEPATH += "../filter/"
 
 DESTDIR = ../bin/
 
-QMAKE_CXXFLAGS += -std=c++11 -ggdb3 -Wall -Wextra -pedantic
+QMAKE_CXXFLAGS += -std=c++11 -ggdb3 -Wall -Wextra -pedantic -fopenmp
+
+LIBS += -fopenmp
 
 FORMS    += mainwindow.ui \
     colorfilterdialog.ui

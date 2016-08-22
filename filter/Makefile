@@ -13,7 +13,7 @@ DEPDIR = $(OUTDIR)/deps
 $(shell mkdir -p $(DEPDIR) >/dev/null)
 
 CC = g++
-CC_FLAGS = -std=c++11 -g -Wall -Wextra -pedantic
+CC_FLAGS = -std=c++11 -g -Wall -Wextra -pedantic -fopenmp
 LIBS   = -lgtest -lgtest_main
 
 
@@ -28,7 +28,7 @@ DEPFILES = $(addprefix $(DEPDIR)/, $(TMPDEPFILES))
 
 # Main target
 $(OUTDIR)/$(PROGRAM): $(OBJFILES)
-	$(CC) $(OBJFILES) -o $@ 
+	$(CC) $(CC_FLAGS) $(OBJFILES) -o $@ 
 
 # pull in dependency info for *existing* .o files
 -include $(DEPFILES)

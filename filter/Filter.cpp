@@ -1,5 +1,6 @@
 #include "Filter.h"
 #include <string>
+#include <omp.h>
 
 using namespace std;
 
@@ -17,13 +18,13 @@ Image Filter::operator << (imaging::Image & inpImage) {
 	Image bufImage(inpImage.getWidth(), inpImage.getHeight());
 
 	// Apply the filter by iterating over each pixel of the image replica
+	#pragma omp parallel for
 	for (unsigned int i = 0; i < bufImage.getHeight(); i++) {
 		for (unsigned int j = 0; j < bufImage.getWidth(); j++) {
 
 			bufImage(j, i) = filteredPixel(inpImage, j, i);
 		}
 	}
-
 	cout << filtername << " filter applied." << endl;
 
 	// Return the result

@@ -14,7 +14,7 @@ DEPDIR = $(OUTDIR)/deps-test
 $(shell mkdir -p $(DEPDIR) >/dev/null)
 CC = g++
 CC_FLAGS = -std=c++11 -ggdb3 -Wall -Wextra -pedantic -fprofile-arcs \
-			-ftest-coverage 
+			-ftest-coverage -fopenmp
 LIBS   = -lgtest -lgtest_main
 
 
